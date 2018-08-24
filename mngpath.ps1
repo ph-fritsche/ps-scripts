@@ -237,7 +237,7 @@ function getPath (
     $target
 ) {
     $unique = [System.Collections.ArrayList]@()
-    $path = [Environment]::GetEnvironmentVariable("Path", $target)
+    $path = [string] [Environment]::GetEnvironmentVariable("Path", $target)
     $path = $path.Split(";") | normalizeWinPaths
     foreach ($p in $path) {
         if (! $unique.Contains($p)) {

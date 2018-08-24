@@ -25,7 +25,7 @@ function main {
 
         $userPaths = getUserPath
         if ($IsRunAsAdmin) {
-            $userPathsOffset = $machinePaths.Length
+            $userPathsOffset = $machinePaths.Count
         } else {
             $userPathsOffset = 0
         }
@@ -92,7 +92,7 @@ function main {
                 Write-Host "Cancel"
                 continue
             } elseif ($target -eq "machine") {
-                $machinePaths = [System.Collections.ArrayList] ( $machinePaths[0..($pos-1)] + $machinePaths[($pos+1)..($machinePaths.Length)] )
+                $machinePaths = [System.Collections.ArrayList] ( $machinePaths[0..($pos-1)] + $machinePaths[($pos+1)..($machinePaths.Count)] )
                 [void] $machinePaths.Insert($newPos, $object)
                 setMachinePath $machinePaths
             } else {
@@ -101,7 +101,7 @@ function main {
                 } else {
                     $newPos = 0
                 }
-                $userPaths = [System.Collections.ArrayList] ( $userPaths[0..($pos-1)] + $userPaths[($pos+1)..($userPaths.Length)] )
+                $userPaths = [System.Collections.ArrayList] ( $userPaths[0..($pos-1)] + $userPaths[($pos+1)..($userPaths.Count)] )
                 [void] $userPaths.Insert($newPos, $object)
                 setUserPath $userPaths
             }

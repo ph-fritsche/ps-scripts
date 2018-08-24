@@ -56,12 +56,10 @@ function main {
             }
 
             if ($target -eq "machine" -or $target -eq "both") {
-                $machinePaths = [System.Collections.ArrayList] $machinePaths
                 [void] $machinePaths.Add($normalizedPath)
                 setMachinePath $machinePaths
             }
             if ($target -eq "user" -or $target -eq "both") {
-                $userPaths = [System.Collections.ArrayList] $userPaths
                 [void] $userPaths.Add( $normalizedPath )
                 setUserPath $userPaths
             }
@@ -115,13 +113,11 @@ function main {
                 continue
             } elseif ($pos -lt $userPathsOffset) {
                 $target = "machine"
-                $machinePaths = [System.Collections.ArrayList] $machinePaths
                 [void] $machinePaths.RemoveAt($pos)
                 setMachinePath $machinePaths
             } else {
                 $target = "user"
                 $pos = $pos - $userPathsOffset
-                $userPaths = [System.Collections.ArrayList] $userPaths
                 [void] $userPaths.RemoveAt($pos)
                 setUserPath $userPaths
             }
@@ -248,15 +244,15 @@ function getPath (
             [void] $unique.Add($p)
         }
     }
-    $unique
+    ,$unique
 }
 
 function getMachinePath {
-    getPath ([System.EnvironmentVariableTarget]::Machine)
+    ,(getPath ([System.EnvironmentVariableTarget]::Machine))
 }
 
 function getUserPath {
-    getPath ([System.EnvironmentVariableTarget]::User)
+    ,(getPath ([System.EnvironmentVariableTarget]::User))
 }
 
 function normalizeWinPaths {
